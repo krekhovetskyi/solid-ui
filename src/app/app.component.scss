@@ -27,7 +27,7 @@
 
 
 #main {
-  margin-left: 250px;
+  margin-left: 265px;
   transition: .3s;
 }
 
@@ -42,4 +42,18 @@
 .row-content-header {
   padding: 5px;
   font-size: 20px;
+}
+
+/* The Overlay (background) */
+.overlay {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 54px;
+  overflow-x: hidden;
+  transition: .3s;
+  transform: translateX(100%);
+  border-left: 1px solid;
 }
