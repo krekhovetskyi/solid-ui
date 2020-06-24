@@ -72,3 +72,16 @@ export class DetailPanel implements IState {
     return false;
   }
 }
+
+
+export interface IMediatorImpl {
+  showNavPanel(): void;
+
+  hideNavPanel(): void;
+
+  showDetailPanel(): void;
+
+  hideDetailPanel(): void;
+
+  changeShowHideSideButton(fromClass: string, toClass: string): void;
+}
