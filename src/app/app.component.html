@@ -1,30 +1,11 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand">&nbsp;</a>
-    <ul class="navbar-nav mr-auto">
-        <li class="nav-item nav-link">Home</li>
-        <li class="nav-item nav-link">Products</li>
-        <li class="nav-item nav-link">About Us</li>
-    </ul>
-</nav>
-<div id="mySidenav" class="sidenav">
-    <a href="#">About</a>
-    <a href="#">Services</a>
-    <a href="#">Clients</a>
-    <a href="#">Contact</a>
-</div>
-<div id="myRightScreen" class="overlay">
-    <button class="btn button-no-borders" (click)="closeClicked()">
-        <span class="fa fa-chevron-left"></span>
-    </button>
-    <div class="overlay-content">
-        <h1>page 2</h1>
-    </div>
-</div>
+<sol-navbar></sol-navbar>
+<sol-sidenav></sol-sidenav>
+<sol-rightscreen (notify)="onNotifyRightWindow($event)"></sol-rightscreen>
 <div id="main" class="main-content-panel">
     <div class="row">
         <div class="col-sm-1">
             <button class="btn button-no-borders" (click)="showHideSideClicked()">
-                <span class="fa fa-chevron-left"></span>
+                <span id="show-hide-side-button" class="fa fa-chevron-left"></span>
             </button>
         </div>
         <div class="col-sm-11">
