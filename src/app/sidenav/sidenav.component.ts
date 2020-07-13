@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, Inject, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
 
@@ -7,7 +7,7 @@ import { DOCUMENT } from '@angular/common';
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss']
 })
-export class SidenavComponent implements OnInit, AfterContentInit {
+export class SidenavComponent implements OnInit, AfterViewInit {
   private _mySidenavEl!: HTMLElement;
 
   constructor(@Inject(DOCUMENT) private _document: Document) {
@@ -16,8 +16,8 @@ export class SidenavComponent implements OnInit, AfterContentInit {
   ngOnInit(): void {
   }
 
-  ngAfterContentInit(): void {
-    this._mySidenavEl = this._document.getElementById('mySideNav') as HTMLElement;
+  ngAfterViewInit(): void {
+    this._mySidenavEl = this._document.getElementById('mySidenav') as HTMLElement;
   }
 
   closeNav(): void {

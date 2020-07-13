@@ -1,8 +1,8 @@
-import { AfterContentInit, Component, Inject, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Inject, ViewChild } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { RightScreenComponent } from './rightscreen/rightscreen.component';
-import { IMediatorImpl } from './StateMediator';
+import { IMediatorImpl, Mediator, StateType } from './StateMediator';
 
 
 @Component({
@@ -10,57 +10,49 @@ import { IMediatorImpl } from './StateMediator';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements AfterContentInit, IMediatorImpl {
+export class AppComponent implements AfterViewInit, IMediatorImpl {
   @ViewChild(SidenavComponent) private _sideNav!: SidenavComponent;
   @ViewChild(RightScreenComponent) private _rightScreen!: RightScreenComponent;
   public title: string;
   private _mainEl!: HTMLElement;
-  private _mySidenavEl!: HTMLElement;
   private _myRightScreen!: HTMLElement;
   private _showHideSideBtnEl!: HTMLElement;
   private _isSideNavVisible: boolean;
+  private _mediator: Mediator;
 
   constructor(@Inject(DOCUMENT) private _document: Document) {
     this.title = 'Select an option :';
     this._isSideNavVisible = true;
+
+    this._mediator = new Mediator(this);
   }
 
-  ngAfterContentInit(): void {
+  ngAfterViewInit(): void {
     this._mainEl = this._document.getElementById('main') as HTMLElement;
-    this._mySidenavEl = this._document.getElementById('mySidenav') as HTMLElement;
     this._myRightScreen = this._document.getElementById('myRightScreen') as HTMLElement;
     this._showHideSideBtnEl = this._document.getElementById('show-hide-side-button') as HTMLElement;
+
+
+    // @TODO: ViewChild and ContentChild details
+    // https://jaxenter.com/simplifying-viewchild-contentchild-angular-142894.html
+    this._mediator.moveToState(StateType.MainPanelWithSideNav);
   }
 
   showHideSideClicked(): void {
-    if (this._isSideNavVisible) {
-      this._mainEl.style.marginLeft = '0px';
-      this._mySidenavEl.style.width = '0px';
-      this._isSideNavVisible = false;
-    } else {
-      this._mainEl.style.marginLeft = '250px';
-      this._mySidenavEl.style.width = '250px';
-      this._isSideNavVisible = true;
-    }
+    this._mediator.showHideSideNavClicked();
   }
 
   buttonClickedDetail(): void {
-    this._myRightScreen.style.transform = 'translateX(0%)';
-    this._mainEl.style.transform = 'translate(-100%)';
+    this._mediator.moveToState(StateType.DetailPanel);
   }
 
-  closeClicked(): void {
-    this._myRightScreen.style.transform = 'translateX(100%)';
-    this._mainEl.style.transform = 'translate(0%)';
-  }
-
-  onNotifyRightWindow($event: string) {
-
+  onNotifyRightWindow(message: string) {
+    this._mediator.moveToState(StateType.MainPanelWithSideNav)
   }
 
   showNavPanel(): void {
     this._sideNav.showNav();
-    this._mainEl.style.marginLeft = '250px';
+    this._mainEl.style.marginLeft = '265px';
   }
 
   hideNavPanel(): void {
